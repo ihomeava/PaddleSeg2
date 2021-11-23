@@ -89,7 +89,8 @@ def predict(model,
     color_map = visualize.get_color_map_list(256, custom_color=custom_color)
     with paddle.no_grad():
         for i, im_path in enumerate(img_lists[local_rank]):
-            im = cv2.imread(im_path)
+            #im = cv2.imread(im_path)            
+            im = cv2.imdecode(np.fromfile(im_path,dtype=np.uint8),-1) # BGR
             ori_shape = im.shape[:2]
             im, _ = transforms(im)
             im = im[np.newaxis, ...]
