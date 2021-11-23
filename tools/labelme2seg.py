@@ -45,7 +45,7 @@ def main(args):
     # get the all class names for the given dataset
     class_names = ['_background_']
     for label_file in glob.glob(osp.join(args.input_dir, '*.json')):
-        with open(label_file) as f:
+        with open(label_file, encoding='utf-8') as f:
             data = json.load(f)
             for shape in data['shapes']:
                 label = shape['label']
@@ -71,14 +71,15 @@ def main(args):
 
     for label_file in glob.glob(osp.join(args.input_dir, '*.json')):
         print('Generating dataset from:', label_file)
-        with open(label_file) as f:
+        with open(label_file, encoding='utf-8') as f:
             base = osp.splitext(osp.basename(label_file))[0]
             out_png_file = osp.join(output_dir, base + '.png')
 
             data = json.load(f)
 
             img_file = osp.join(osp.dirname(label_file), data['imagePath'])
-            img = np.asarray(cv2.imread(img_file))
+            img = cv2.imdecode(np.fromfile(img_file,dtype=np.uint8),-1) # BGR
+            img = np.asarray(img)
 
             lbl = shape2label(
                 img_size=img.shape,

@@ -142,7 +142,7 @@ def generate_list(args):
                     line = left + '\n'
 
                 f.write(line)
-                print(line)
+                #print(line)
             start = end
 
 
