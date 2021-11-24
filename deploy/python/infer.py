@@ -227,7 +227,7 @@ class Predictor:
         if not os.path.exists(args.save_dir):
             os.makedirs(args.save_dir)
 
-        for i in range(0, num, args.batch_size):
+        for i in range(0, num, args.batch_size):            
             if args.benchmark:
                 self.autolog.times.start()
             data = np.array(
@@ -241,6 +241,7 @@ class Predictor:
             self.predictor.run()
 
             results = output_handle.copy_to_cpu()
+            logger.info(results.shape)
             if args.benchmark:
                 self.autolog.times.stamp()
 
@@ -264,6 +265,7 @@ class Predictor:
         for i in range(results.shape[0]):
             result = get_pseudo_color_map(results[i])
             basename = os.path.basename(imgs[i])
+            logger.info(basename)
             basename, _ = os.path.splitext(basename)
             basename = f'{basename}.png'
             result.save(os.path.join(self.args.save_dir, basename))
