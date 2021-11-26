@@ -1,0 +1,50 @@
+batch_size: 1
+iters: 160000
+
+model:
+  type: UNet3Plus
+  in_channels: 3
+  num_classes: 2
+  is_batchnorm: True
+  is_deepsup: False
+  is_CGM: False
+
+train_dataset:
+  type: Dataset
+  num_classes: 2
+  dataset_root: data/voc/VOCdevkit/VOCleather/
+  train_path: data/voc/VOCdevkit/VOCleather/train05.txt
+  transforms:
+    - type: Resize
+      target_size: [512, 512]
+    - type: RandomHorizontalFlip
+    - type: Normalize
+  mode: train
+
+val_dataset:
+  type: Dataset
+  num_classes: 2
+  dataset_root: data/voc/VOCdevkit/VOCleather/
+  val_path: data/voc/VOCdevkit/VOCleather/val05.txt
+  transforms:
+    - type: Resize
+      target_size: [512, 512]
+    - type: Normalize
+  mode: val
+
+
+optimizer:
+  type: sgd
+  momentum: 0.9
+  weight_decay: 4.0e-5
+
+lr_scheduler:
+  type: PolynomialDecay
+  learning_rate: 0.01
+  end_lr: 0
+  power: 0.9
+
+loss:
+  types:
+    - type: CrossEntropyLoss
+  coef: [1]

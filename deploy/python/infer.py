@@ -240,10 +240,13 @@ class Predictor:
 
             self.predictor.run()
 
-            results = output_handle.copy_to_cpu()
+            results0 = output_handle.copy_to_cpu()
+            if 0 == i:
+                results = results0
+            else:
+                results = np.concatenate((results,results0),axis=0)
             if args.benchmark:
                 self.autolog.times.stamp()
-
             results = self._postprocess(results)
 
             if args.benchmark:
@@ -267,6 +270,7 @@ class Predictor:
             basename, _ = os.path.splitext(basename)
             basename = f'{basename}.png'
             result.save(os.path.join(self.args.save_dir, basename))
+            logger.info("%s done!" % basename)
 
 
 def parse_args():

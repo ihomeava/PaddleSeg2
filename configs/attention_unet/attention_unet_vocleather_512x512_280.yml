@@ -9,7 +9,7 @@ train_dataset:
   type: Dataset
   num_classes: 2
   dataset_root: data/voc/VOCdevkit/VOCleather/
-  train_path: data/voc/VOCdevkit/VOCleather/train04.txt
+  train_path: data/voc/VOCdevkit/VOCleather/train05.txt
   transforms:
     - type: Resize
       target_size: [512, 512]
@@ -21,7 +21,7 @@ val_dataset:
   type: Dataset
   num_classes: 2
   dataset_root: data/voc/VOCdevkit/VOCleather/
-  val_path: data/voc/VOCdevkit/VOCleather/val04.txt
+  val_path: data/voc/VOCdevkit/VOCleather/val05.txt
   transforms:
     - type: Resize
       target_size: [512, 512]

@@ -133,7 +133,8 @@ def predict(model,
                 im_path, pred, color_map, weight=0.6)
             added_image_path = os.path.join(added_saved_dir, im_file)
             mkdir(added_image_path)
-            cv2.imwrite(added_image_path, added_image)
+            #cv2.imwrite(added_image_path, added_image)
+            cv2.imencode(os.path.splitext(added_image_path)[-1], added_image)[1].tofile(added_image_path)
 
             # save pseudo color prediction
             pred_mask = utils.visualize.get_pseudo_color_map(pred, color_map)
