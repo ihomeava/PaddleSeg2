@@ -114,7 +114,7 @@ def generate_list(args):
 
     start = 0
     num_split = len(args.split)
-    dataset_name = ['traing05', 'val05', 'test05']
+    dataset_name = ['train05', 'val05', 'test05']
     for i in range(num_split):
         dataset_split = dataset_name[i]
         print("Creating {}.txt...".format(dataset_split))
