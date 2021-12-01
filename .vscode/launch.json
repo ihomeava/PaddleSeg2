@@ -11,6 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "args": [
+                /*
                 "--config",
                 "configs/unet/unet_vocleather_512x512_280.yml",
                 "--model_path",
@@ -19,6 +20,11 @@
                 "output/unet_vocleather_512x512_280_202111292144/result2",
                 "--image_path",
                 "data/vocleather"
+                */
+                "--config", "configs/unet/unet_vocleather_512x512_280.yml",
+                "--model_path", "output/unet_vocleather_512x512_280_202111292144/best_model/model.pdparams",
+                "--save_dir", "output/unet_vocleather_512x512_280_202111292144/result",
+                "--image_path", "data/voc/VOCdevkit/VOCleather/test05"
             ]
         },
         {
@@ -38,6 +44,21 @@
                 "output/unet_vocleather_512x512_280_202111292144",
                 "--resume_model",
                 "output/unet_vocleather_512x512_280_202111292144/iter_17450"
+            ]
+        },
+        {
+            "name": "Python: Export",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--config",
+                "configs/unet/unet_vocleather_512x512_280.yml",
+                "--model_path",
+                "output/unet_vocleather_512x512_280_202111292144/best_model/model.pdparams",
+                "--save_dir",
+                "output/unet_vocleather_512x512_280_202111292144/deploy"
             ]
         },
         {
