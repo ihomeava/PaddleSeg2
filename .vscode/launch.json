@@ -1,0 +1,76 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Predict",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--config", "configs/unet/unet_vocleather_512x512_280.yml",
+                "--model_path", "output/unet_vocleather_512x512_280_202111292144/best_model/model.pdparams",
+                "--save_dir", "output/unet_vocleather_512x512_280_202111292144/result",
+                "--image_path", "data/voc/VOCdevkit/VOCleather/test05"
+            ]
+        },
+        {
+            "name": "Python: Train",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--config",
+                "configs/unet/unet_vocleather_512x512_280.yml",
+                "--do_eval",
+                "--use_vdl",
+                "--save_interval",
+                "50",
+                "--save_dir",
+                "output/unet_vocleather_512x512_280_202111292144",
+                "--resume_model",
+                "output/unet_vocleather_512x512_280_202111292144/iter_17450"
+            ]
+        },
+        {
+            "name": "Python: Export",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--config",
+                "configs/unet/unet_vocleather_512x512_280.yml",
+                "--model_path",
+                "output/unet_vocleather_512x512_280_202111292144/best_model/model.pdparams",
+                "--save_dir",
+                "output/unet_vocleather_512x512_280_202111292144/deploy"
+            ]
+        },
+        {
+            "name": "Python: Infer",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--device",
+                "cpu",
+                "--cpu_threads",
+                "2",
+                "--enable_mkldnn",
+                "False",
+                "--config",
+                "output/attention_unet_vocleather_512x512_280/deploy.yaml",
+                "--image_path",
+                "data/vocleather",
+                "--save_dir",
+                "output/result"
+            ]
+        }
+    ]
+}
